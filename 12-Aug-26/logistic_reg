@@ -1,4 +1,5 @@
 from sklearn.linear_model import LogisticRegression
+import math
 
 X = [[1], [2], [3], [4], [5], [6], [7], [8]]
 y = [0, 0, 0, 0, 1, 1, 1, 1]
@@ -6,11 +7,19 @@ y = [0, 0, 0, 0, 1, 1, 1, 1]
 model = LogisticRegression()
 model.fit(X, y)
 
-print("Coefficient:", model.coef_[0][0])
-print("Intercept:", model.intercept_[0])
+x = 6
 
-print("Prediction for 4:", model.predict([[4]])[0])
-print("Prediction for 6:", model.predict([[6]])[0])
+w = model.coef_[0][0]
+b = model.intercept_[0]
 
-print("Probability for 4:", model.predict_proba([[4]])[0])
-print("Probability for 6:", model.predict_proba([[6]])[0])
+z = w * x + b
+
+probability = 1 / (1 + math.exp(-z))
+
+prediction = model.predict([[x]])[0]
+
+print("Weight:", w)
+print("Bias:", b)
+print("Z:", z)
+print("Probability:", probability)
+print("Prediction:", prediction)
